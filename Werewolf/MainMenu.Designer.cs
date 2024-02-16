@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
             this.menuPanel = new System.Windows.Forms.Panel();
             this.menuLabel = new System.Windows.Forms.Label();
             this.menuPlayButton = new System.Windows.Forms.Button();
@@ -40,11 +41,19 @@
             this.tabRoles = new System.Windows.Forms.TabPage();
             this.checkedListRoles = new System.Windows.Forms.CheckedListBox();
             this.lblroledesc = new System.Windows.Forms.Label();
+            this.tabStart = new System.Windows.Forms.TabPage();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.comboBoxSort = new System.Windows.Forms.ComboBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.menuPanel.SuspendLayout();
             this.settingsPanel.SuspendLayout();
             this.tbctrlsettings.SuspendLayout();
             this.tabPlayers.SuspendLayout();
             this.tabRoles.SuspendLayout();
+            this.tabStart.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuPanel
@@ -53,6 +62,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.menuPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.menuPanel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("menuPanel.BackgroundImage")));
+            this.menuPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.menuPanel.Controls.Add(this.menuLabel);
             this.menuPanel.Controls.Add(this.menuPlayButton);
             this.menuPanel.Location = new System.Drawing.Point(0, 0);
@@ -134,6 +145,7 @@
             this.tbctrlsettings.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tbctrlsettings.Controls.Add(this.tabPlayers);
             this.tbctrlsettings.Controls.Add(this.tabRoles);
+            this.tbctrlsettings.Controls.Add(this.tabStart);
             this.tbctrlsettings.Location = new System.Drawing.Point(108, 68);
             this.tbctrlsettings.Name = "tbctrlsettings";
             this.tbctrlsettings.SelectedIndex = 0;
@@ -157,6 +169,7 @@
             // tabRoles
             // 
             this.tabRoles.AutoScroll = true;
+            this.tabRoles.Controls.Add(this.comboBoxSort);
             this.tabRoles.Controls.Add(this.lblroledesc);
             this.tabRoles.Controls.Add(this.checkedListRoles);
             this.tabRoles.Location = new System.Drawing.Point(4, 54);
@@ -176,59 +189,10 @@
             this.checkedListRoles.ColumnWidth = 175;
             this.checkedListRoles.FormattingEnabled = true;
             this.checkedListRoles.Items.AddRange(new object[] {
-            "The Amulet of Protection:",
-            "Apprentice Seer (+4): ",
-            "Aura Seer (+3): ",
-            "Beholder (+2): ",
-            "Big Bad Wolf (-9):",
-            "Bogeyman (-6): ",
-            "Bodyguard (+3): ",
-            "Cupid (-3): ",
-            "The Count (+5): ",
-            "Diseased (+3): ",
-            "Fruit Brute (-3):",
-            "Ghost (+2):",
-            "Hunter (+3): ",
-            "Village Idiot (+2):",
-            "Insomniac (+3):",
-            "Lycan (-1):",
-            "Wolf man (-9) : ",
-            "Martyr (+3):",
-            "Mason (+2) (3): ",
-            "Mayor (+2): ",
-            "Old Hag (+1): ",
-            "Old Man (0):",
-            "P.I. (+3): ",
-            "Pacifist (-2): ",
-            "Priest (+3): ",
-            "Prince (+3): ",
-            "Seer (+7): ",
-            "Spellcaster (+1):",
-            "Tough Guy (+3): ",
-            "Troublemaker (+2): ",
-            "Thing (+3): ",
-            "Villager (+1) (20): ",
-            "Witch (+4):",
-            "Sorcerer (-3): ",
-            "Minion (-6): ",
-            "Werewolf (-6) (12): ",
-            "Wolf Cub (-8):",
-            "Dream Wolf (-5): ",
-            "Cursed (-3): ",
-            "Doppelgänger (-2): ",
-            "Drunk (3): ",
-            "Cult Leader (+1): ",
-            "Hoodlum:",
-            "Tanner (+1):",
-            "Lone Wolf (-5): ",
-            "Vampire (-7) (8): ",
-            "Wild Child: ",
-            "Sasquatch (-2): ",
-            "Leprechaun (+5): ",
-            "Bloody Mary (+1): ",
-            "Chupacabra (+4): ",
-            "Nostradamus (+1): ",
-            "Dire Wolf (-4): "});
+            "Villager",
+            "Werewolf",
+            "Lycan",
+            "Apprentice Seer"});
             this.checkedListRoles.Location = new System.Drawing.Point(55, 38);
             this.checkedListRoles.MultiColumn = true;
             this.checkedListRoles.Name = "checkedListRoles";
@@ -244,14 +208,95 @@
             this.lblroledesc.Size = new System.Drawing.Size(1000, 75);
             this.lblroledesc.TabIndex = 1;
             // 
+            // tabStart
+            // 
+            this.tabStart.Controls.Add(this.checkBox4);
+            this.tabStart.Controls.Add(this.button1);
+            this.tabStart.Controls.Add(this.checkBox3);
+            this.tabStart.Controls.Add(this.checkBox2);
+            this.tabStart.Controls.Add(this.checkBox1);
+            this.tabStart.Location = new System.Drawing.Point(4, 54);
+            this.tabStart.Name = "tabStart";
+            this.tabStart.Size = new System.Drawing.Size(1180, 553);
+            this.tabStart.TabIndex = 2;
+            this.tabStart.Text = "start";
+            this.tabStart.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(96, 66);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(158, 24);
+            this.checkBox1.TabIndex = 0;
+            this.checkBox1.Text = "Auto Role Assign";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(96, 110);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(190, 24);
+            this.checkBox2.TabIndex = 1;
+            this.checkBox2.Text = "Show Roles on Death";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(96, 150);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(196, 24);
+            this.checkBox3.TabIndex = 2;
+            this.checkBox3.Text = "Moderator cheat sheet";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Red;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 32F);
+            this.button1.Location = new System.Drawing.Point(804, 109);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(288, 327);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Play";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
+            // comboBoxSort
+            // 
+            this.comboBoxSort.FormattingEnabled = true;
+            this.comboBoxSort.Items.AddRange(new object[] {
+            "Alphabetic",
+            "Villager Team",
+            "Werewolf Team",
+            "Neutral Team",
+            "Last Played"});
+            this.comboBoxSort.Location = new System.Drawing.Point(358, 6);
+            this.comboBoxSort.Name = "comboBoxSort";
+            this.comboBoxSort.Size = new System.Drawing.Size(268, 28);
+            this.comboBoxSort.TabIndex = 2;
+            this.comboBoxSort.Text = "Sort by..";
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(96, 193);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(115, 24);
+            this.checkBox4.TabIndex = 4;
+            this.checkBox4.Text = "Save game";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
             // MainMenu
             // 
             this.AcceptButton = this.btnPlayerAdder;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1423, 759);
-            this.Controls.Add(this.menuPanel);
             this.Controls.Add(this.settingsPanel);
+            this.Controls.Add(this.menuPanel);
             this.Name = "MainMenu";
             this.ShowIcon = false;
             this.Text = "MainMenu";
@@ -264,6 +309,8 @@
             this.tabPlayers.ResumeLayout(false);
             this.tabPlayers.PerformLayout();
             this.tabRoles.ResumeLayout(false);
+            this.tabStart.ResumeLayout(false);
+            this.tabStart.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -282,5 +329,12 @@
         private System.Windows.Forms.TabPage tabRoles;
         private System.Windows.Forms.CheckedListBox checkedListRoles;
         private System.Windows.Forms.Label lblroledesc;
+        private System.Windows.Forms.TabPage tabStart;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.ComboBox comboBoxSort;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox checkBox4;
     }
 }

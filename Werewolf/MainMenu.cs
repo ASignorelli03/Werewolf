@@ -107,6 +107,11 @@ namespace Werewolf
 
         private void MainMenu_Load(object sender, EventArgs e)
         {
+            checkedListRoles.Items.Clear();
+            for (int i = 0; i < roleTable.GetLength(0); i++)
+            {
+                checkedListRoles.Items.Add(roleTable[i, 0].ToString());
+            }
         }
         private void MainMenu_Resize(object sender, System.EventArgs e)
         {
@@ -122,15 +127,7 @@ namespace Werewolf
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             //find description of currect selected role
-            for(int i = 0;i<25;i++)
-            {
-                if (roleTable[i,0].Contains(checkedListRoles.SelectedIndex.ToString()))
-                {
-                    lblroledesc.Text = roleTable[i,3];
-                    lblroledesc.Update();
-
-                }
-            }
+            lblroledesc.Text = roleTable[this.checkedListRoles.SelectedIndex,3];
         }
 
         private void tabRoles_Click(object sender, EventArgs e)
@@ -167,9 +164,13 @@ namespace Werewolf
             {"Werewolf","werewolf","-6","Eat a villager each night." },
             {"Wolf Cub","werewolf","-8","If you die, the werewolves get two kills the following night." },
             {"Cursed","neutral","-3","You are a villager until attacked by werewolves, at which time you become a werewolf. (variation: You become a vampire when attacked by vampires.)" },
-            {"Doppelgänger","neutral","-2","Select a player the first night. If that player dies, you secretly take that role." },
             {"Drunk","villager","3","You are a villager until the third night, when you remember your real role." }, 
            //incomplete list https://ultimatewerewolfgames.tumblr.com/roles
         };
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
