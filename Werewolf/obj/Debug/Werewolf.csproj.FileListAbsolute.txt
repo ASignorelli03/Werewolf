@@ -1,0 +1,10 @@
+C:\Users\ashoo\source\repos\Werewolf\Werewolf\bin\Debug\Werewolf.exe.config
+C:\Users\ashoo\source\repos\Werewolf\Werewolf\bin\Debug\Werewolf.exe
+C:\Users\ashoo\source\repos\Werewolf\Werewolf\bin\Debug\Werewolf.pdb
+C:\Users\ashoo\source\repos\Werewolf\Werewolf\obj\Debug\Werewolf.csproj.AssemblyReference.cache
+C:\Users\ashoo\source\repos\Werewolf\Werewolf\obj\Debug\Werewolf.Properties.Resources.resources
+C:\Users\ashoo\source\repos\Werewolf\Werewolf\obj\Debug\Werewolf.csproj.GenerateResource.cache
+C:\Users\ashoo\source\repos\Werewolf\Werewolf\obj\Debug\Werewolf.csproj.CoreCompileInputs.cache
+C:\Users\ashoo\source\repos\Werewolf\Werewolf\obj\Debug\Werewolf.exe
+C:\Users\ashoo\source\repos\Werewolf\Werewolf\obj\Debug\Werewolf.pdb
+C:\Users\ashoo\source\repos\Werewolf\Werewolf\obj\Debug\Werewolf.MainMenu.resources
