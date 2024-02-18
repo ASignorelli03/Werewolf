@@ -6,6 +6,8 @@ using System.Data.SqlClient;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -36,8 +38,7 @@ namespace Werewolf
 
         private void menuPlayButton_Click(object sender, EventArgs e)
         {
-            menuPanel.Hide();
-            settingsPanel.Show();
+            settingsPanel.BringToFront();
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -47,7 +48,7 @@ namespace Werewolf
 
         private void settingsPlayerNameInput_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -66,9 +67,9 @@ namespace Werewolf
                         if (arr[i] == settingsPlayerNameInput.Text) arr[i] = "";
                     }
                     LstPlayerNames.Items.Clear();
-                    foreach(string s in arr)
+                    foreach (string s in arr)
                     {
-                        if(s !="") LstPlayerNames.Items.Add(s);
+                        if (s != "") LstPlayerNames.Items.Add(s);
                     }
                 }
                 else
@@ -81,7 +82,7 @@ namespace Werewolf
         }
         private Boolean CheckList(String[] strs, String s)
         {
-            foreach(String str in strs)
+            foreach (String str in strs)
             {
                 if (str == s)
                 {
@@ -107,27 +108,55 @@ namespace Werewolf
 
         private void MainMenu_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'databaseDataSetActual.deadNoRole' table. You can move, or remove it, as needed.
+            this.deadNoRoleTableAdapter.Fill(this.databaseDataSetActual.deadNoRole);
+            // TODO: This line of code loads data into the 'databaseDataSetActual.aliveList' table. You can move, or remove it, as needed.
+            this.aliveListTableAdapter.Fill(this.databaseDataSetActual.aliveList);
+
+            this.Width = 1500;
+            this.Height = 800;
+            pnlgame.Location = new Point(0, 0);
+            pnlgame.Size = new Size(1500, 800);
+            settingsPanel.Location = new Point(0, 0);
+            settingsPanel.Size = new Size(1500, 800);
+            menuPanel.Location = new Point(0, 0);
+            menuPanel.Size = new Size(1500, 800);
+            menuPanel.BringToFront();
+            tbctrlsettings.Location = new Point(0, 0);
+            tbctrlsettings.Size = new Size(1500, 800);
             checkedListRoles.Items.Clear();
-            for (int i = 0; i < roleTable.GetLength(0); i++)
+            lblroledesc.Location = new Point(settingsPanel.Location.X+20,settingsPanel.Location.Y+40);
+            DataTable dt = sqlSelect("Select Name FROM Roles");
+            foreach (DataRow row in dt.Rows)
             {
-                checkedListRoles.Items.Add(roleTable[i, 0].ToString());
+                string name = row["Name"].ToString();
+                checkedListRoles.Items.Add(name);
             }
         }
         private void MainMenu_Resize(object sender, System.EventArgs e)
         {
-            menuPlayButton.Location = new Point(this.Width / 2 - menuPlayButton.Width / 2, this.Height / 2 - menuPlayButton.Height / 2);
-            menuPlayButton.Size = new Size(this.Width / 4, this.Height / 6);
-            menuLabel.Location = new Point(this.Width / 2 - menuLabel.Width / 2, this.Height / 4);
-            menuLabel.Size = new Size(120, 20);
-
-           
-            
+            this.Width = 1500;
+            this.Height = 800;
+            pnlgame.Location = new Point(0, 0);
+            pnlgame.Size = new Size(this.Width, this.Height);
+            settingsPanel.Location = new Point(0, 0);
+            settingsPanel.Size = new Size(this.Width, this.Height);
+            menuPanel.Location = new Point(0, 0);
+            menuPanel.Size = new Size(this.Width, this.Height);
+            menuPanel.BringToFront();
+            tbctrlsettings.Location = settingsPanel.Location;
         }
 
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //find description of currect selected role
-            lblroledesc.Text = roleTable[this.checkedListRoles.SelectedIndex,3];
+            string selectedRoleName = this.checkedListRoles.SelectedItem.ToString(); // Get the selected role name
+            DataTable dt = sqlSelect("SELECT Description FROM Roles WHERE Name = '" + selectedRoleName + "'");
+
+            foreach (DataRow row in dt.Rows)
+            {
+                string description = row["Description"].ToString();
+                lblroledesc.Text = description;
+            }
         }
 
         private void tabRoles_Click(object sender, EventArgs e)
@@ -139,36 +168,98 @@ namespace Werewolf
         {
 
         }
-        String[,] roleTable =
-        {
-            {"Apprentice Seer","villager","4" ,"Become the Seer if the Seer is killed." },
-            {"Bodyguard","villager","3" ,"Choose a different player each night to protect. That player cannot be killed that night."},
-            {"Cupid","villager","-3","Choose two players to be lovers. If one of those players dies, the other dies from a broken heart." },
-            {"Diseased","villager","3","If you are attacked by werewolves, the werewolves do not get fed the following night." },
-            {"Hunter","villager","3","If you are killed, take someone down with you." },
-            {"Village Idiot","village","2","Always vote for players to die." },
-            {"Lycan","villager","-1","You are a villager, but you appear falsely to be a werewolf to the Seers and PI." },
-            {"Wolf man","werewolf","-9","You Wake With the other Werewolves each night, but the Seer sees you as a Villager" },
-            {"Mayor","villager","2","Your vote counts twice when voting to lynch a player if you reveal yourself." },
-            {"Old Hag","villager","1","At night, indicate a player who must leave the village the next day." },
-            {"P.I.","villager","3","Inspect three players each night (they must be beside each other). You only know if at least one of them is malicious. (variation: Inspect three adjacent players on one night)." },
-            {"Priest","villager","3","On the first night, protect a player. The next attempt to kill the player fails. The night after that attempt, you protect a different player. (variation: Protect one player from death caused at night, including vampire attacks.)" },
-            {"Prince","villager","3","You can’t be lynched." },
-            {"Seer","villager","7","Each night, point at a player and learn if they are: Either on the villager team, or a vampire, or, if a werewolf, the exact powers." },
-            {"Spellcaster","villager","1" ,"At night, indicate a player who must not use their voice the following day." },
-            {"Tough Guy","villager","3","You survive an extra day if attacked by werewolves at night." },
-            {"Villager","villager","1","Find the werewolves and lynch them." },
-            {"Witch","villager","4","Kill or heal a player, once each per game." },
-            {"Sorcerer","werewolf","-3","You are a seer, but you are on the Werewolf team. You only know if you’ve found a werewolf, another seer, or something else." },
-            {"Minion","werewolf","-6","Work with the werewolves or vampires to kill the villagers. The moderator decides whether you work with the werewolves or the vampires." },
-            {"Werewolf","werewolf","-6","Eat a villager each night." },
-            {"Wolf Cub","werewolf","-8","If you die, the werewolves get two kills the following night." },
-            {"Cursed","neutral","-3","You are a villager until attacked by werewolves, at which time you become a werewolf. (variation: You become a vampire when attacked by vampires.)" },
-            {"Drunk","villager","3","You are a villager until the third night, when you remember your real role." }, 
-           //incomplete list https://ultimatewerewolfgames.tumblr.com/roles
-        };
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            pnlgame.BringToFront();
+            for (int i = 0; i < LstPlayerNames.Items.Count; i++)
+            {
+                string playerName = LstPlayerNames.Items[i].ToString();
+                string sql = $"INSERT INTO LiveGame(Player, Role, Status) VALUES('{playerName}', 'role', 'Alive')";
+                runCommand(sql);
+            }
+        }
+
+        private void pnlgame_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            settingsPanel.BringToFront();
+        }
+
+        private void menuPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        private void runCommand(string s)
+        {
+            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\ashoo\\source\\repos\\Werewolf\\Werewolf\\Database.mdf;Integrated Security=True;Connect Timeout=30";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(s, connection))
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle any exceptions here (e.g., log or display an error message)
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+        private DataTable sqlSelect(string s)
+        {
+            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\ashoo\\source\\repos\\Werewolf\\Werewolf\\Database.mdf;Integrated Security=True;Connect Timeout=30";
+            DataTable dt = new DataTable();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    using (var command = new SqlCommand(s, connection))
+                    {
+                        connection.Open();
+                        using (SqlDataReader dr = command.ExecuteReader())
+                        {
+                            dt.Load(dr);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle any exceptions here (e.g., log or display an error message)
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+            return dt;
+        }
+
+        private void aliveListDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void deadNoRoleDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
