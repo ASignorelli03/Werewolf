@@ -17,7 +17,8 @@ namespace Werewolf
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MultiFormContext(new MainMenu(), new ModeratorView()));
+            //Application.Run(new MultiFormContext(new MainMenu(), new ModeratorView()));
+            Application.Run(new MainMenu());
         }
     }
     public class MultiFormContext : ApplicationContext

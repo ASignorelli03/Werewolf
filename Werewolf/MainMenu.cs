@@ -11,6 +11,7 @@ using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Werewolf.DatabaseDataSetTableAdapters;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
@@ -52,7 +53,7 @@ namespace Werewolf
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {
+        {//add/remove fro liveGame db here 
             if (settingsPlayerNameInput.Text != "")
             {
                 string[] arr = new string[LstPlayerNames.Items.Count];
@@ -60,7 +61,7 @@ namespace Werewolf
                 {
                     arr[i] = LstPlayerNames.Items[i].ToString();
                 }
-                if (CheckList(arr, settingsPlayerNameInput.Text))
+                if (CheckList(arr, settingsPlayerNameInput.Text))// already in list means delete from it
                 {
                     for (int i = 0; i < LstPlayerNames.Items.Count; i++)
                     {
@@ -71,14 +72,17 @@ namespace Werewolf
                     {
                         if (s != "") LstPlayerNames.Items.Add(s);
                     }
+                    runCommand($"DELETE FROM liveGame WHERE Player = '{settingsPlayerNameInput.Text}'");
                 }
-                else
+                else//not in list means add to it
                 {
                     LstPlayerNames.Items.Add(settingsPlayerNameInput.Text);
+                    runCommand($"INSERT INTO ModView(Player, Role, Status) VALUES('{settingsPlayerNameInput.Text}', 'villager', 'Alive')");
                 }
             }
             settingsPlayerNameInput.Clear();
             settingsPlayerNameInput.Focus();
+            lblPlayerCount.Text = "Player Count: " + LstPlayerNames.Items.Count;
         }
         private Boolean CheckList(String[] strs, String s)
         {
@@ -132,6 +136,14 @@ namespace Werewolf
                 string name = row["Name"].ToString();
                 checkedListRoles.Items.Add(name);
             }
+            dt = sqlSelect("Select Player FROM LiveGame");
+            foreach(DataRow row in dt.Rows)
+            {
+                string name = row["Player"].ToString();
+                LstPlayerNames.Items.Add(name);
+            }
+            LstPlayerNames.Update();
+            LstPlayerNames.Refresh();
         }
         private void MainMenu_Resize(object sender, System.EventArgs e)
         {
@@ -157,8 +169,8 @@ namespace Werewolf
                 string description = row["Description"].ToString();
                 lblroledesc.Text = description;
             }
+            lblRoleCount.Text = "Role Count: "+checkedListRoles.CheckedItems.Count;//change where this event is to when the box is checked not when the selection is changed
         }
-
         private void tabRoles_Click(object sender, EventArgs e)
         {
 
@@ -176,12 +188,45 @@ namespace Werewolf
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            pnlgame.BringToFront();
-            for (int i = 0; i < LstPlayerNames.Items.Count; i++)
+            if (checkedListRoles.CheckedItems.Count == LstPlayerNames.Items.Count)
             {
-                string playerName = LstPlayerNames.Items[i].ToString();
-                string sql = $"INSERT INTO LiveGame(Player, Role, Status) VALUES('{playerName}', 'role', 'Alive')";
-                runCommand(sql);
+                string[] roles = new string[checkedListRoles.CheckedItems.Count];
+                for (int i = 0; i < checkedListRoles.SelectedItems.Count; i++)
+                {
+                    roles[i] = checkedListRoles.SelectedItems[i].ToString();
+                }
+                if (checkBox1.Checked)
+                {
+                    randomize(roles);
+                }
+                for (int i = 0; i < LstPlayerNames.Items.Count; i++)
+                {
+                    string playerName = LstPlayerNames.Items[i].ToString();
+                    if (roles[i] == null) roles[i] = "villager";//seg fault here, not every player is making it into the alivegame table
+                    string sql = $"INSERT INTO ModView(Player, Role, Status) VALUES('{playerName}', '{roles[i]}', 'Alive')";
+                    runCommand(sql);
+                }
+                var ModeratorView = new ModeratorView();
+                pnlgame.BringToFront();
+                ModeratorView.Show();
+            }
+            else//warning text about playercount not being role count
+            {
+                int n = checkedListRoles.CheckedItems.Count - LstPlayerNames.Items.Count;
+                if (checkedListRoles.CheckedItems.Count > LstPlayerNames.Items.Count) lblWarning.Text = "Remove " +n.ToString() + " more role(s)";
+                else lblWarning.Text = "Select " + (-n).ToString() + " more role(s)";
+                        
+            }
+        }
+        private void randomize(string[] items) 
+        {
+            Random rand = new Random();
+            for(int i =0;i<items.Length;i++)
+            {
+                int j = rand.Next(items.Length);
+                string temp = items[i];
+                items[i] = items[j];
+                items[j] = temp;
             }
         }
 

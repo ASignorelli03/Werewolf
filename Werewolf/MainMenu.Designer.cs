@@ -44,6 +44,9 @@
             this.lblroledesc = new System.Windows.Forms.Label();
             this.checkedListRoles = new System.Windows.Forms.CheckedListBox();
             this.tabStart = new System.Windows.Forms.TabPage();
+            this.lblRoleCount = new System.Windows.Forms.Label();
+            this.lblPlayerCount = new System.Windows.Forms.Label();
+            this.lblWarning = new System.Windows.Forms.Label();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -132,7 +135,7 @@
             this.settingsPanel.Controls.Add(this.tbctrlsettings);
             this.settingsPanel.Location = new System.Drawing.Point(26, 46);
             this.settingsPanel.Name = "settingsPanel";
-            this.settingsPanel.Size = new System.Drawing.Size(1080, 636);
+            this.settingsPanel.Size = new System.Drawing.Size(880, 618);
             this.settingsPanel.TabIndex = 1;
             this.settingsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.settingsPanel_Paint);
             // 
@@ -147,7 +150,7 @@
             this.tbctrlsettings.Location = new System.Drawing.Point(26, 14);
             this.tbctrlsettings.Name = "tbctrlsettings";
             this.tbctrlsettings.SelectedIndex = 0;
-            this.tbctrlsettings.Size = new System.Drawing.Size(979, 575);
+            this.tbctrlsettings.Size = new System.Drawing.Size(779, 557);
             this.tbctrlsettings.TabIndex = 4;
             // 
             // tabPlayers
@@ -158,7 +161,7 @@
             this.tabPlayers.Location = new System.Drawing.Point(4, 29);
             this.tabPlayers.Name = "tabPlayers";
             this.tabPlayers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPlayers.Size = new System.Drawing.Size(971, 542);
+            this.tabPlayers.Size = new System.Drawing.Size(771, 524);
             this.tabPlayers.TabIndex = 0;
             this.tabPlayers.Text = "players";
             this.tabPlayers.UseVisualStyleBackColor = true;
@@ -204,7 +207,7 @@
             this.tabRoles.Location = new System.Drawing.Point(4, 29);
             this.tabRoles.Name = "tabRoles";
             this.tabRoles.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRoles.Size = new System.Drawing.Size(971, 542);
+            this.tabRoles.Size = new System.Drawing.Size(771, 524);
             this.tabRoles.TabIndex = 1;
             this.tabRoles.Text = "roles";
             this.tabRoles.UseVisualStyleBackColor = true;
@@ -230,15 +233,16 @@
             this.lblroledesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblroledesc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblroledesc.Location = new System.Drawing.Point(55, 498);
+            this.lblroledesc.Location = new System.Drawing.Point(55, 480);
             this.lblroledesc.Name = "lblroledesc";
-            this.lblroledesc.Size = new System.Drawing.Size(894, 41);
+            this.lblroledesc.Size = new System.Drawing.Size(694, 41);
             this.lblroledesc.TabIndex = 1;
             // 
             // checkedListRoles
             // 
             this.checkedListRoles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkedListRoles.CheckOnClick = true;
             this.checkedListRoles.ColumnWidth = 175;
             this.checkedListRoles.FormattingEnabled = true;
             this.checkedListRoles.Items.AddRange(new object[] {
@@ -249,12 +253,15 @@
             this.checkedListRoles.Location = new System.Drawing.Point(55, 38);
             this.checkedListRoles.MultiColumn = true;
             this.checkedListRoles.Name = "checkedListRoles";
-            this.checkedListRoles.Size = new System.Drawing.Size(894, 441);
+            this.checkedListRoles.Size = new System.Drawing.Size(694, 441);
             this.checkedListRoles.TabIndex = 0;
             this.checkedListRoles.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_SelectedIndexChanged);
             // 
             // tabStart
             // 
+            this.tabStart.Controls.Add(this.lblRoleCount);
+            this.tabStart.Controls.Add(this.lblPlayerCount);
+            this.tabStart.Controls.Add(this.lblWarning);
             this.tabStart.Controls.Add(this.checkBox5);
             this.tabStart.Controls.Add(this.checkBox4);
             this.tabStart.Controls.Add(this.button1);
@@ -263,10 +270,34 @@
             this.tabStart.Controls.Add(this.checkBox1);
             this.tabStart.Location = new System.Drawing.Point(4, 29);
             this.tabStart.Name = "tabStart";
-            this.tabStart.Size = new System.Drawing.Size(154, 117);
+            this.tabStart.Size = new System.Drawing.Size(771, 524);
             this.tabStart.TabIndex = 2;
             this.tabStart.Text = "start";
             this.tabStart.UseVisualStyleBackColor = true;
+            // 
+            // lblRoleCount
+            // 
+            this.lblRoleCount.AutoSize = true;
+            this.lblRoleCount.Location = new System.Drawing.Point(488, 464);
+            this.lblRoleCount.Name = "lblRoleCount";
+            this.lblRoleCount.Size = new System.Drawing.Size(0, 20);
+            this.lblRoleCount.TabIndex = 8;
+            // 
+            // lblPlayerCount
+            // 
+            this.lblPlayerCount.AutoSize = true;
+            this.lblPlayerCount.Location = new System.Drawing.Point(381, 434);
+            this.lblPlayerCount.Name = "lblPlayerCount";
+            this.lblPlayerCount.Size = new System.Drawing.Size(0, 20);
+            this.lblPlayerCount.TabIndex = 7;
+            // 
+            // lblWarning
+            // 
+            this.lblWarning.AutoSize = true;
+            this.lblWarning.Location = new System.Drawing.Point(409, 400);
+            this.lblWarning.Name = "lblWarning";
+            this.lblWarning.Size = new System.Drawing.Size(0, 20);
+            this.lblWarning.TabIndex = 6;
             // 
             // checkBox5
             // 
@@ -340,9 +371,9 @@
             this.pnlgame.Controls.Add(this.deadNoRoleDataGridView);
             this.pnlgame.Controls.Add(this.aliveListDataGridView);
             this.pnlgame.Controls.Add(this.btngameback);
-            this.pnlgame.Location = new System.Drawing.Point(319, 60);
+            this.pnlgame.Location = new System.Drawing.Point(980, 60);
             this.pnlgame.Name = "pnlgame";
-            this.pnlgame.Size = new System.Drawing.Size(1199, 571);
+            this.pnlgame.Size = new System.Drawing.Size(538, 604);
             this.pnlgame.TabIndex = 5;
             this.pnlgame.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlgame_Paint);
             // 
@@ -358,11 +389,11 @@
             this.dataGridViewTextBoxColumn4});
             this.deadNoRoleDataGridView.DataSource = this.deadNoRoleBindingSource;
             this.deadNoRoleDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.deadNoRoleDataGridView.Location = new System.Drawing.Point(730, 120);
+            this.deadNoRoleDataGridView.Location = new System.Drawing.Point(69, 120);
             this.deadNoRoleDataGridView.Name = "deadNoRoleDataGridView";
             this.deadNoRoleDataGridView.RowHeadersWidth = 62;
             this.deadNoRoleDataGridView.RowTemplate.Height = 28;
-            this.deadNoRoleDataGridView.Size = new System.Drawing.Size(181, 329);
+            this.deadNoRoleDataGridView.Size = new System.Drawing.Size(181, 362);
             this.deadNoRoleDataGridView.TabIndex = 2;
             this.deadNoRoleDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.deadNoRoleDataGridView_CellContentClick);
             // 
@@ -403,7 +434,7 @@
             this.aliveListDataGridView.Name = "aliveListDataGridView";
             this.aliveListDataGridView.RowHeadersWidth = 62;
             this.aliveListDataGridView.RowTemplate.Height = 28;
-            this.aliveListDataGridView.Size = new System.Drawing.Size(534, 329);
+            this.aliveListDataGridView.Size = new System.Drawing.Size(0, 362);
             this.aliveListDataGridView.TabIndex = 1;
             this.aliveListDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.aliveListDataGridView_CellContentClick);
             // 
@@ -531,5 +562,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.Label lblWarning;
+        private System.Windows.Forms.Label lblRoleCount;
+        private System.Windows.Forms.Label lblPlayerCount;
     }
 }
